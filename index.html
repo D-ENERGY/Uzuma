@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Usuma District | Army-Navy-Efab Jumong</title>
+    <title>Welcome | Army-Navy-Efab Jumong</title>
     <style>
         :root {
             --army-green: #228B22;
@@ -12,12 +12,11 @@
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
+            margin: 0; padding: 0;
+            height: 100%; width: 100%;
             font-family: 'Segoe UI', Roboto, sans-serif;
-            overflow: hidden;
             background-color: #000;
+            overflow-x: hidden;
         }
 
         .container {
@@ -36,70 +35,52 @@
             text-align: center;
             transition: all 0.5s ease;
             position: relative;
-            padding: 20px;
+            padding: 40px 20px;
             cursor: pointer;
             text-decoration: none;
+            box-sizing: border-box;
         }
 
         .army {
             background: linear-gradient(rgba(34, 139, 34, 0.8), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1000&q=80');
-            background-size: cover;
-            background-position: center;
+                        url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1000');
+            background-size: cover; background-position: center;
             border-right: 1px solid rgba(255,255,255,0.1);
         }
 
         .navy {
             background: linear-gradient(rgba(0, 0, 128, 0.8), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .side:hover {
-            flex: 1.2;
+                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000');
+            background-size: cover; background-position: center;
         }
 
         .logo-box {
             background: white;
-            padding: 8px;
+            padding: 10px;
             border-radius: 50%;
-            width: 180px; 
-            height: 180px; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 180px; height: 180px;
+            display: flex; justify-content: center; align-items: center;
             margin-bottom: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 4px solid var(--gold);
             animation: breathe 4s ease-in-out infinite;
-            border: 3px solid var(--gold);
         }
 
-        .logo-box img {
-            max-width: 85%; 
-            max-height: 85%;
-            height: auto;
-            object-fit: contain;
-        }
+        .logo-box img { max-width: 90%; max-height: 90%; object-fit: contain; }
 
         h1 {
             color: white;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             margin: 10px 0;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
         }
 
-        p {
-            color: #ddd;
-            font-size: 1.1rem;
-            max-width: 300px;
-            margin-bottom: 30px;
-        }
+        p { color: #fff; font-size: 1rem; max-width: 320px; margin-bottom: 30px; line-height: 1.4; }
 
         .enter-btn {
-            padding: 12px 35px;
+            padding: 12px 40px;
             border: 2px solid white;
             color: white;
             background: transparent;
@@ -109,76 +90,52 @@
             border-radius: 30px;
         }
 
-        .side:hover .enter-btn {
-            background: white;
-        }
+        .side:hover .enter-btn { background: white; }
         .army:hover .enter-btn { color: var(--army-green); }
         .navy:hover .enter-btn { color: var(--navy-blue); }
 
         .center-badge {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             z-index: 10;
             background: white;
-            color: #333;
-            padding: 15px 30px;
+            color: #111;
+            padding: 12px 25px;
             border-radius: 50px;
             font-weight: bold;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            text-align: center;
-            pointer-events: none;
             border: 2px solid var(--gold);
+            white-space: nowrap;
         }
 
-        .center-badge span {
-            display: block;
-            font-size: 0.7rem;
-            color: #666;
-            text-transform: uppercase;
-        }
-
-        /* Footer Style */
         footer {
             position: absolute;
-            bottom: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            bottom: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.85);
             color: #fff;
             text-align: center;
-            padding: 15px 0;
-            font-size: 0.85rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
+            padding: 15px 10px;
+            font-size: 0.8rem;
             z-index: 20;
+            box-sizing: border-box;
+            border-top: 1px solid var(--gold);
         }
 
-        footer strong {
-            color: var(--gold);
-        }
-
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
+        @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
         @media (max-width: 768px) {
-            .container { flex-direction: column; }
-            .side:hover { flex: 1.5; }
+            .container { flex-direction: column; height: auto; }
+            .side { height: 50vh; min-height: 420px; flex: none; }
             .logo-box { width: 140px; height: 140px; }
-            .center-badge { width: 85%; top: 50%; }
-            h1 { font-size: 1.8rem; }
-            footer { font-size: 0.75rem; padding: 10px 0; }
+            .center-badge { display: none; }
+            footer { position: relative; }
         }
     </style>
 </head>
 <body>
 
-    <div class="center-badge">
-        <span>Welcome to</span>
-        USUMA DISTRICT, ABUJA
-    </div>
+    <div class="center-badge">USUMA DISTRICT, ABUJA</div>
 
     <div class="container">
         <a href="greenhills.html" class="side army">
@@ -186,7 +143,7 @@
                 <img src="WhatsApp Image 2026-04-18 at 15.30.21.jpeg" alt="Army Logo">
             </div>
             <h1>Greenhills City</h1>
-            <p>Providing State of the Art Infrastructure with Army-Efab Jumong</p>
+            <p>Meeting your needs in Infrastructures and Buildings</p>
             <div class="enter-btn">Enter Site</div>
         </a>
 
@@ -195,13 +152,13 @@
                 <img src="WhatsApp Image 2026-04-18 at 15.30.21 (1).jpeg" alt="Navy Logo">
             </div>
             <h1>Whitehills City</h1>
-            <p>Excellence in Buildings and Infrastructure with Navy-Efab Jumong</p>
+            <p>Meeting your needs in Infrastructures and Buildings</p>
             <div class="enter-btn">Enter Site</div>
         </a>
     </div>
 
     <footer>
-        Plot 267, Behind Katampe Ext, Usuma District, Abuja | <strong>Army-Navy-Efab Jumong Limited</strong> | &copy; 2026
+        Plot 267, Katampe Ext, Abuja | <strong>Army-Navy-Efab Jumong Limited</strong> | &copy; 2026
     </footer>
 
 </body>

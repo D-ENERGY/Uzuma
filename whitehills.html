@@ -5,215 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whitehills City | Navy-Efab Jumong</title>
     <style>
-        :root {
-            --navy-blue: #000080;
-            --anchor-gold: #C5A059;
-            --pure-white: #ffffff;
-            --soft-gray: #f8f9fa;
+        :root { --navy-blue: #000080; --anchor-gold: #C5A059; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; margin: 0; background: #f8f9fa; color: #333; }
+        header { background: #fff; padding: 15px; text-align: center; border-bottom: 4px solid var(--navy-blue); }
+        .logo { max-width: 180px; animation: breathe 4s infinite; }
+        @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        
+        .hero { 
+            background: linear-gradient(rgba(0,0,128,0.85), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000');
+            background-size: cover; background-position: center; padding: 60px 20px; color: white; text-align: center;
         }
+        .hero h1 { font-size: clamp(2.2rem, 8vw, 3.5rem); margin: 0; text-transform: uppercase; }
+        .hero p { font-style: italic; font-size: 1.1rem; opacity: 0.9; }
 
-        body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            line-height: 1.7;
-            margin: 0;
-            background-color: var(--soft-gray);
-            color: #2c3e50;
-        }
+        .content-wrap { max-width: 1100px; margin: -30px auto 40px; background: white; padding: 40px 25px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 92%; box-sizing: border-box; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .box { padding: 25px; border: 1px solid #eee; border-top: 5px solid var(--navy-blue); border-radius: 4px; }
+        h2 { color: var(--navy-blue); margin-top: 0; text-transform: uppercase; font-size: 1.3rem; }
+        
+        .goals-list { list-style: none; padding: 0; margin-bottom: 40px; }
+        .goals-list li { padding: 12px 0 12px 35px; position: relative; border-bottom: 1px solid #f0f0f0; }
+        .goals-list li::before { content: "⚓"; position: absolute; left: 0; color: var(--anchor-gold); font-size: 1.2rem; }
 
-        header {
-            background: var(--pure-white);
-            padding: 15px 10px;
-            text-align: center;
-            border-bottom: 4px solid var(--navy-blue);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        .btn-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 30px; background: #f0f4f8; padding: 25px; border-radius: 8px; }
+        .btn { padding: 14px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 0.9rem; text-align: center; transition: 0.3s; flex: 1; min-width: 220px; }
+        .btn-navy { background: var(--navy-blue); color: white; border: 2px solid var(--navy-blue); }
+        .btn-outline { background: transparent; color: var(--navy-blue); border: 2px solid var(--navy-blue); }
+        .btn-gold { background: var(--anchor-gold); color: white; border: 2px solid var(--anchor-gold); }
+        .btn:hover { transform: translateY(-3px); opacity: 0.9; }
 
-        @keyframes breathe {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
+        .location-box { text-align: center; padding: 20px; border: 1px dashed var(--navy-blue); margin-top: 30px; }
 
-        .logo {
-            max-width: 250px;
-            height: auto;
-            animation: breathe 4s ease-in-out infinite;
-            display: block;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0, 0, 128, 0.85), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        .hero h1 { font-size: 3rem; margin: 0; letter-spacing: 1px; }
-        .hero p { font-size: 1.2rem; font-weight: 300; opacity: 0.9; }
-
-        .content-wrap {
-            max-width: 1100px;
-            margin: -40px auto 40px;
-            background: white;
-            padding: 40px;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .vision-mission {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .box {
-            padding: 25px;
-            border: 1px solid #eee;
-            border-top: 5px solid var(--navy-blue);
-        }
-
-        h2 {
-            color: var(--navy-blue);
-            text-transform: uppercase;
-            font-size: 1.4rem;
-            margin-top: 0;
-        }
-
-        .goals-list {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 40px;
-        }
-
-        .goals-list li {
-            padding: 12px 0 12px 40px;
-            border-bottom: 1px solid #f0f0f0;
-            position: relative;
-        }
-
-        .goals-list li::before {
-            content: "⚓";
-            position: absolute;
-            left: 0;
-            color: var(--anchor-gold);
-            font-size: 1.1rem;
-        }
-
-        /* Buttons Style */
-        .resource-section {
-            text-align: center;
-            padding: 30px;
-            background: #f0f4f8;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-
-        .btn-container {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: 0.3s;
-            display: inline-flex;
-            align-items: center;
-            font-size: 0.9rem;
-        }
-
-        .btn-download { background: var(--navy-blue); color: white; border: 2px solid var(--navy-blue); }
-        .btn-read { background: transparent; color: var(--navy-blue); border: 2px solid var(--navy-blue); }
-        .btn-brief { background: var(--anchor-gold); color: white; border: 2px solid var(--anchor-gold); }
-
-        .btn:hover { opacity: 0.8; transform: translateY(-2px); }
-
-        .location-section {
-            background: #fdfdfd;
-            padding: 20px;
-            border: 1px dashed var(--navy-blue);
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        footer {
-            background: #111;
-            color: #999;
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .vision-mission { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2rem; }
-            .btn-container { flex-direction: column; }
+        footer { background: #111; color: #999; text-align: center; padding: 40px 20px; font-size: 0.85rem; border-top: 4px solid var(--anchor-gold); }
+        
+        @media (max-width: 600px) {
+            .btn { width: 100%; flex: none; }
+            .hero { padding: 40px 15px; }
         }
     </style>
 </head>
 <body>
-
-<header>
-    <img src="WhatsApp Image 2026-04-18 at 15.30.21 (1).jpeg" alt="Whitehills City Logo" class="logo">
-</header>
-
-<div class="hero">
-    <h1>Whitehills City</h1>
-    <p>Meeting your needs in Infrastructures and Buildings</p>
-</div>
-
-<div class="content-wrap">
-    <section class="vision-mission">
-        <div class="box">
-            <h2>Our Vision</h2>
-            <p>To Provide State of the Art Infrastructures and Buildings in Nigeria.</p>
+    <header><img src="WhatsApp Image 2026-04-18 at 15.30.21 (1).jpeg" class="logo" alt="Navy Logo">
+        <div style="text-align: left; margin-bottom: 20px;">
+            <a href="index.html" style="text-decoration: none; color: var(--navy-blue); font-weight: bold; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;">
+                ← Back to Project Selection
+            </a>
         </div>
-        <div class="box">
-            <h2>Our Mission</h2>
-            <p>To Provide Quality Infrastructures and Buildings using Standard Materials, Equipments and Technology in Nigeria.</p>
-        </div>
-    </section>
+    </header>
+    
+    <div class="hero">
+        <h1>Whitehills City</h1>
+        <p>Motto: Meeting your needs in Infrastructures and Buildings</p>
+    </div>
 
-    <section>
-        <h2 style="border-left: 10px solid var(--anchor-gold); padding-left: 15px;">Our Primary Goals</h2>
+    <div class="content-wrap">
+        <div class="grid">
+            <div class="box">
+                <h2>Our Vision</h2>
+                <p>To Provide State of the Art Infrastructures and Buildings in Nigeria.</p>
+            </div>
+            <div class="box">
+                <h2>Our Mission</h2>
+                <p>To Provide Quality Infrastructures and Buildings using Standard Materials, Equipments and Technology in Nigeria.</p>
+            </div>
+        </div>
+
+        <h2 style="border-left: 10px solid var(--anchor-gold); padding-left: 15px;">Our Goals</h2>
         <ul class="goals-list">
             <li>To provide quality infrastructures and Buildings in Nigeria.</li>
             <li>To make use of standard materials, equipments and technology in the provision of infrastructures and Buildings in Nigeria.</li>
             <li>To provide pre and post construction Job opportunities to restive youths in Nigeria.</li>
             <li>To add to the development mantra of Mr President of Nigeria.</li>
         </ul>
-    </section>
 
-    <section class="resource-section">
-        <h2>Project Resources</h2>
         <div class="btn-container">
-            <a href="#" class="btn btn-download">📄 Download Application Form</a>
-            <a href="#" class="btn btn-read">📖 Read Master Plan</a>
-            <a href="#" class="btn btn-brief">⬇️ Download Project Brief</a>
+            <a href="#" class="btn btn-navy">📄 Download Application Form</a>
+            <a href="#" class="btn btn-outline">📖 Read Master Plan</a>
+            <a href="#" class="btn btn-gold">⬇️ Download Project Brief</a>
         </div>
-    </section>
 
-    <section class="location-section">
-        <h2>Find Us</h2>
-        <p><strong>Site Location:</strong> Plot 267, Behind Katampe Ext, Usuma District, Abuja</p>
-    </section>
-</div>
+        <div class="location-box">
+            <p><strong>Site Location:</strong> Plot 267, Behind Katampe Ext, Usuma District, Abuja</p>
+        </div>
+    </div>
 
-<footer>
-    <p><strong>Navy-Efab Jumong Limited</strong><br>
-    Plot 267, Behind Katampe Ext, Usuma District, Abuja<br>
-    &copy; 2026 Whitehills City. All Rights Reserved.</p>
-</footer>
-
+    <footer>
+        <p><strong>Navy-Efab Jumong Limited</strong><br>
+        Plot 267, Behind Katampe Ext, Usuma District, Abuja<br>
+        &copy; 2026 Whitehills City. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
