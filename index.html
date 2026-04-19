@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Usuma District | Army-Navy-Efab Jumong</title>
+    <style>
+        :root {
+            --army-green: #228B22;
+            --navy-blue: #000080;
+            --gold: #B8860B;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            flex-direction: row;
+        }
+
+        .side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+            padding: 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .army {
+            background: linear-gradient(rgba(34, 139, 34, 0.8), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            border-right: 2px solid var(--gold);
+        }
+
+        .navy {
+            background: linear-gradient(rgba(0, 0, 128, 0.8), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .side:hover {
+            flex: 1.2;
+        }
+
+        /* ADJUSTED: Reduced circular container size */
+        .logo-box {
+            background: white;
+            padding: 8px;
+            border-radius: 50%;
+            width: 180px; /* Perfectly balanced size */
+            height: 180px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            animation: breathe 4s ease-in-out infinite;
+            border: 3px solid var(--gold);
+        }
+
+        .logo-box img {
+            max-width: 85%; 
+            max-height: 85%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin: 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        p {
+            color: #ddd;
+            font-size: 1.1rem;
+            max-width: 300px;
+            margin-bottom: 30px;
+        }
+
+        .enter-btn {
+            padding: 12px 35px;
+            border: 2px solid white;
+            color: white;
+            background: transparent;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            border-radius: 30px;
+        }
+
+        .side:hover .enter-btn {
+            background: white;
+        }
+        .army:hover .enter-btn { color: var(--army-green); }
+        .navy:hover .enter-btn { color: var(--navy-blue); }
+
+        .center-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            background: white;
+            color: #333;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            text-align: center;
+            pointer-events: none;
+            border: 2px solid var(--gold);
+        }
+
+        .center-badge span {
+            display: block;
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .side:hover { flex: 1.5; }
+            .logo-box { width: 140px; height: 140px; }
+            .center-badge { width: 85%; top: 50%; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="center-badge">
+        <span>Welcome to</span>
+        USUMA DISTRICT, ABUJA
+    </div>
+
+    <div class="container">
+        <a href="greenhills.html" class="side army">
+            <div class="logo-box">
+                <img src="WhatsApp Image 2026-04-18 at 15.30.21.jpeg" alt="Army Logo">
+            </div>
+            <h1>Greenhills City</h1>
+            <p>Providing State of the Art Infrastructure with Army-Efab Jumong</p>
+            <div class="enter-btn">Enter Site</div>
+        </a>
+
+        <a href="whitehills.html" class="side navy">
+            <div class="logo-box">
+                <img src="WhatsApp Image 2026-04-18 at 15.30.21 (1).jpeg" alt="Navy Logo">
+            </div>
+            <h1>Whitehills City</h1>
+            <p>Excellence in Buildings and Infrastructure with Navy-Efab Jumong</p>
+            <div class="enter-btn">Enter Site</div>
+        </a>
+    </div>
+
+</body>
+</html>
