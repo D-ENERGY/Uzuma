@@ -25,8 +25,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(root, "index.html"),
-        greenhills: path.resolve(root, "greenhills.html"),
-        whitehills: path.resolve(root, "whitehills.html"),
+        greenhills: path.resolve(root, "greenhills/index.html"),
+        whitehills: path.resolve(root, "whitehills/index.html"),
       },
     },
   },
