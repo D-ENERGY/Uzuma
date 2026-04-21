@@ -19,14 +19,23 @@ function validate(data: ApplicationFormData): string | null {
   if (data.passportPhoto && data.passportPhoto.size > PASSPORT_MAX_SIZE_BYTES) {
     return "Passport photograph must not be more than 2MB.";
   }
+  if (!data.passportPhoto) return "Please upload AFFIX PASSPORT PHOTOGRAPH.";
+  if (!data.title.trim()) return "Please enter Title.";
   if (!data.firstName.trim()) return "Please enter your first name.";
   if (!data.othernames.trim()) return "Please enter your othernames.";
+  if (!data.companyName.trim()) return "Please enter Company Name (If Applicable).";
+  if (!data.rcNo.trim()) return "Please enter RC No.";
   if (!data.contactAddress.trim()) return "Please enter your contact address.";
+  if (!data.postalAddress.trim()) return "Please enter Postal Address.";
   if (!data.emailAddress.trim()) return "Please enter your email address.";
   if (!data.contactNo.trim()) return "Please enter your contact number.";
+  if (!data.nok.trim()) return "Please enter NOK.";
+  if (!data.gsmNo.trim()) return "Please enter GSM No.";
+  if (!data.allocatedProperty.trim()) return "Please enter SECTION D: ALLOCATED PROPERTY.";
   if (!data.acceptedTerms) return "You must accept the terms and conditions.";
   if (!data.applicantName.trim()) return "Please enter your name (declaration).";
   if (!data.signatureFile) return "Please upload your signature.";
+  if (!data.appointmentRef.trim()) return "Please enter Appt.";
   if (!data.date.trim()) return "Please enter the date.";
   return null;
 }
@@ -37,6 +46,7 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
   );
   const [status, setStatus] = useState<SubmitStatus>({ state: "idle" });
   const [view, setView] = useState<"edit" | "preview">("edit");
+  const [showValidation, setShowValidation] = useState(false);
   const [passportPreviewSrc, setPassportPreviewSrc] = useState("");
   const [signaturePreviewSrc, setSignaturePreviewSrc] = useState("");
 
@@ -76,7 +86,16 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
     setData(createDefaultFormData(city));
     setStatus({ state: "idle" });
     setView("edit");
+    setShowValidation(false);
   }, [city, open]);
+
+  React.useEffect(() => {
+    if (status.state !== "success") return;
+    const timer = window.setTimeout(() => {
+      setStatus({ state: "idle" });
+    }, 3000);
+    return () => window.clearTimeout(timer);
+  }, [status]);
 
   if (!open) return null;
 
@@ -84,6 +103,7 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
   const titleText = "APPLICATION FORM";
 
   async function handleFinalSubmit() {
+    setShowValidation(true);
     setStatus({ state: "idle" });
 
     const error = validate(data);
@@ -119,10 +139,41 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
     }
   }
 
+  function handleGoPreview() {
+    setShowValidation(true);
+    setStatus({ state: "idle" });
+    const error = validate(data);
+    if (error) {
+      setStatus({ state: "error", message: error });
+      return;
+    }
+    setView("preview");
+  }
+
   const propertyPreviewOptions = propertyOptions.map((o) => ({
     ...o,
     checked: o.value === data.propertyType,
   }));
+  const invalid = {
+    passportPhoto: !data.passportPhoto,
+    title: !data.title.trim(),
+    firstName: !data.firstName.trim(),
+    othernames: !data.othernames.trim(),
+    companyName: !data.companyName.trim(),
+    rcNo: !data.rcNo.trim(),
+    contactAddress: !data.contactAddress.trim(),
+    postalAddress: !data.postalAddress.trim(),
+    emailAddress: !data.emailAddress.trim(),
+    contactNo: !data.contactNo.trim(),
+    nok: !data.nok.trim(),
+    gsmNo: !data.gsmNo.trim(),
+    allocatedProperty: !data.allocatedProperty.trim(),
+    acceptedTerms: !data.acceptedTerms,
+    applicantName: !data.applicantName.trim(),
+    signatureFile: !data.signatureFile,
+    appointmentRef: !data.appointmentRef.trim(),
+    date: !data.date.trim(),
+  };
 
   return (
     <div
@@ -149,6 +200,9 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
         </div>
 
         <div className="application-form">
+          <div className="application-instruction">
+            PLEASE FILL THE FORM IN CAPITAL LETTERS.
+          </div>
           {view === "preview" ? (
             <div className="application-preview">
               <div className="application-preview-paper">
@@ -356,8 +410,10 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
                 <div className="application-error">{status.message}</div>
               ) : null}
               {status.state === "success" ? (
-                <div className="application-success">
-                  Submitted. Reference: {status.reference ?? "N/A"}.
+                <div className="application-success-overlay" role="status" aria-live="polite">
+                  <div className="application-success-popup">
+                    Submitted. Reference: {status.reference ?? "N/A"}.
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -367,8 +423,9 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
               <h3>SECTION A: PERSONAL DATA</h3>
 
               <div className="application-field" style={{ marginBottom: 12 }}>
-                <label htmlFor="passportPhoto">AFFIX PASSPORT PHOTOGRAPH</label>
+                <label className="required-label" htmlFor="passportPhoto">AFFIX PASSPORT PHOTOGRAPH</label>
                 <input
+                  className={showValidation && invalid.passportPhoto ? "field-invalid" : ""}
                   id="passportPhoto"
                   type="file"
                   accept="image/*"
@@ -398,16 +455,19 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
 
               <div className="application-row">
                 <div className="application-field">
-                  <label htmlFor="title">Title</label>
+                  <label className="required-label" htmlFor="title">Title</label>
                   <input
+                    className={showValidation && invalid.title ? "field-invalid" : ""}
                     id="title"
                     value={data.title}
                     onChange={(e) => setData({ ...data, title: e.target.value })}
+                    required
                   />
                 </div>
                 <div className="application-field">
-                  <label htmlFor="firstName">First Name</label>
+                  <label className="required-label" htmlFor="firstName">First Name</label>
                   <input
+                    className={showValidation && invalid.firstName ? "field-invalid" : ""}
                     id="firstName"
                     value={data.firstName}
                     onChange={(e) =>
@@ -420,8 +480,9 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
 
               <div className="application-row">
                 <div className="application-field">
-                  <label htmlFor="othernames">Othernames</label>
+                  <label className="required-label" htmlFor="othernames">Othernames</label>
                   <input
+                    className={showValidation && invalid.othernames ? "field-invalid" : ""}
                     id="othernames"
                     value={data.othernames}
                     onChange={(e) =>
@@ -475,28 +536,33 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
 
               <div className="application-row">
                 <div className="application-field">
-                  <label htmlFor="companyName">Company Name (If Applicable)</label>
+                  <label className="required-label" htmlFor="companyName">Company Name (If Applicable)</label>
                   <input
+                    className={showValidation && invalid.companyName ? "field-invalid" : ""}
                     id="companyName"
                     value={data.companyName}
                     onChange={(e) =>
                       setData({ ...data, companyName: e.target.value })
                     }
+                    required
                   />
                 </div>
                 <div className="application-field">
-                  <label htmlFor="rcNo">RC No</label>
+                  <label className="required-label" htmlFor="rcNo">RC No</label>
                   <input
+                    className={showValidation && invalid.rcNo ? "field-invalid" : ""}
                     id="rcNo"
                     value={data.rcNo}
                     onChange={(e) => setData({ ...data, rcNo: e.target.value })}
+                    required
                   />
                 </div>
               </div>
 
               <div className="application-field" style={{ marginBottom: 12 }}>
-                <label htmlFor="contactAddress">Contact Address</label>
+                <label className="required-label" htmlFor="contactAddress">Contact Address</label>
                 <textarea
+                  className={showValidation && invalid.contactAddress ? "field-invalid" : ""}
                   id="contactAddress"
                   value={data.contactAddress}
                   onChange={(e) =>
@@ -507,20 +573,23 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
               </div>
 
               <div className="application-field" style={{ marginBottom: 12 }}>
-                <label htmlFor="postalAddress">Postal Address</label>
+                <label className="required-label" htmlFor="postalAddress">Postal Address</label>
                 <input
+                  className={showValidation && invalid.postalAddress ? "field-invalid" : ""}
                   id="postalAddress"
                   value={data.postalAddress}
                   onChange={(e) =>
                     setData({ ...data, postalAddress: e.target.value })
                   }
+                  required
                 />
               </div>
 
               <div className="application-row">
                 <div className="application-field">
-                  <label htmlFor="emailAddress">Email Address</label>
+                  <label className="required-label" htmlFor="emailAddress">Email Address</label>
                   <input
+                    className={showValidation && invalid.emailAddress ? "field-invalid" : ""}
                     id="emailAddress"
                     type="email"
                     value={data.emailAddress}
@@ -531,8 +600,9 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
                   />
                 </div>
                 <div className="application-field">
-                  <label htmlFor="contactNo">Contact No</label>
+                  <label className="required-label" htmlFor="contactNo">Contact No</label>
                   <input
+                    className={showValidation && invalid.contactNo ? "field-invalid" : ""}
                     id="contactNo"
                     value={data.contactNo}
                     onChange={(e) =>
@@ -545,21 +615,25 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
 
               <div className="application-row">
                 <div className="application-field">
-                  <label htmlFor="nok">NOK</label>
+                  <label className="required-label" htmlFor="nok">NOK</label>
                   <input
+                    className={showValidation && invalid.nok ? "field-invalid" : ""}
                     id="nok"
                     value={data.nok}
                     onChange={(e) =>
                       setData({ ...data, nok: e.target.value })
                     }
+                    required
                   />
                 </div>
                 <div className="application-field">
-                  <label htmlFor="gsmNo">GSM No</label>
+                  <label className="required-label" htmlFor="gsmNo">GSM No</label>
                   <input
+                    className={showValidation && invalid.gsmNo ? "field-invalid" : ""}
                     id="gsmNo"
                     value={data.gsmNo}
                     onChange={(e) => setData({ ...data, gsmNo: e.target.value })}
+                    required
                   />
                 </div>
               </div>
@@ -613,11 +687,13 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
               <h3 style={{ marginTop: 14 }}>SECTION D: ALLOCATED PROPERTY</h3>
               <div className="application-field">
                 <input
+                  className={showValidation && invalid.allocatedProperty ? "field-invalid" : ""}
                   id="allocatedProperty"
                   value={data.allocatedProperty}
                   onChange={(e) =>
                     setData({ ...data, allocatedProperty: e.target.value })
                   }
+                  required
                 />
               </div>
 
@@ -672,15 +748,16 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
                     required
                     style={{ marginRight: 10 }}
                   />
-                  I hereby declare that the details provided above are true. That I fully agree with the conditions under which the unit will be allocated to me/my company.
+                  <span className={showValidation && invalid.acceptedTerms ? "required-label field-invalid-text" : "required-label"}>I hereby declare that the details provided above are true. That I fully agree with the conditions under which the unit will be allocated to me/my company.</span>
                 </label>
               </div>
 
               <h3 style={{ marginTop: 14 }}>Declaration by Applicant</h3>
               <div className="application-row">
                 <div className="application-field">
-                  <label htmlFor="applicantName">Name</label>
+                  <label className="required-label" htmlFor="applicantName">Name</label>
                   <input
+                    className={showValidation && invalid.applicantName ? "field-invalid" : ""}
                     id="applicantName"
                     value={data.applicantName}
                     onChange={(e) =>
@@ -690,8 +767,9 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
                   />
                 </div>
                 <div className="application-field">
-                  <label htmlFor="signatureFile">Signature</label>
+                  <label className="required-label" htmlFor="signatureFile">Signature</label>
                   <input
+                    className={showValidation && invalid.signatureFile ? "field-invalid" : ""}
                     id="signatureFile"
                     type="file"
                     accept="image/*"
@@ -708,18 +786,21 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
 
               <div className="application-row">
                 <div className="application-field">
-                  <label htmlFor="appointmentRef">Appt.</label>
+                  <label className="required-label" htmlFor="appointmentRef">Appt.</label>
                   <input
+                    className={showValidation && invalid.appointmentRef ? "field-invalid" : ""}
                     id="appointmentRef"
                     value={data.appointmentRef}
                     onChange={(e) =>
                       setData({ ...data, appointmentRef: e.target.value })
                     }
+                    required
                   />
                 </div>
                 <div className="application-field">
-                  <label htmlFor="date">Date</label>
+                  <label className="required-label" htmlFor="date">Date</label>
                   <input
+                    className={showValidation && invalid.date ? "field-invalid" : ""}
                     id="date"
                     type="date"
                     value={data.date}
@@ -765,8 +846,7 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
                   type="button"
                   className="application-secondary"
                   onClick={() => {
-                    setStatus({ state: "idle" });
-                    setView("preview");
+                    handleGoPreview();
                   }}
                   disabled={status.state === "submitting"}
                 >
@@ -777,8 +857,7 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
                   className="application-primary"
                   disabled={status.state === "submitting"}
                   onClick={() => {
-                    setStatus({ state: "idle" });
-                    setView("preview");
+                    handleGoPreview();
                   }}
                 >
                   Continue
