@@ -37,31 +37,40 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
   );
   const [status, setStatus] = useState<SubmitStatus>({ state: "idle" });
   const [view, setView] = useState<"edit" | "preview">("edit");
+  const [passportPreviewSrc, setPassportPreviewSrc] = useState("");
+  const [signaturePreviewSrc, setSignaturePreviewSrc] = useState("");
 
   const propertyOptions = useMemo(
     () => PROPERTY_OPTIONS_BY_CITY[city],
     [city],
   );
-  const passportPreviewUrl = useMemo(
-    () => (data.passportPhoto ? URL.createObjectURL(data.passportPhoto) : ""),
-    [data.passportPhoto],
-  );
-  const signaturePreviewUrl = useMemo(
-    () => (data.signatureFile ? URL.createObjectURL(data.signatureFile) : ""),
-    [data.signatureFile],
-  );
+  React.useEffect(() => {
+    if (!data.passportPhoto) {
+      setPassportPreviewSrc("");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => setPassportPreviewSrc(String(reader.result ?? ""));
+    reader.onerror = () => setPassportPreviewSrc("");
+    reader.readAsDataURL(data.passportPhoto);
+    return () => {
+      reader.abort();
+    };
+  }, [data.passportPhoto]);
 
   React.useEffect(() => {
+    if (!data.signatureFile) {
+      setSignaturePreviewSrc("");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => setSignaturePreviewSrc(String(reader.result ?? ""));
+    reader.onerror = () => setSignaturePreviewSrc("");
+    reader.readAsDataURL(data.signatureFile);
     return () => {
-      if (passportPreviewUrl) URL.revokeObjectURL(passportPreviewUrl);
+      reader.abort();
     };
-  }, [passportPreviewUrl]);
-
-  React.useEffect(() => {
-    return () => {
-      if (signaturePreviewUrl) URL.revokeObjectURL(signaturePreviewUrl);
-    };
-  }, [signaturePreviewUrl]);
+  }, [data.signatureFile]);
 
   React.useEffect(() => {
     setData(createDefaultFormData(city));
@@ -145,9 +154,9 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
               <div className="application-preview-paper">
                 <div className="application-preview-top">
                   <div className="application-preview-passport">
-                    {passportPreviewUrl ? (
+                    {passportPreviewSrc ? (
                       <img
-                        src={passportPreviewUrl}
+                        src={passportPreviewSrc}
                         alt="Passport preview"
                         className="application-preview-passport-image"
                       />
@@ -296,10 +305,10 @@ export function ApplicationFormModal({ city, open, onClose }: Props) {
                     <div className="application-preview-field">
                       <div className="application-preview-label-inline">Signature</div>
                       <div className="application-preview-signature-box">
-                        {signaturePreviewUrl &&
+                        {signaturePreviewSrc &&
                         data.signatureFile?.type.startsWith("image/") ? (
                           <img
-                            src={signaturePreviewUrl}
+                            src={signaturePreviewSrc}
                             alt="Signature preview"
                             className="application-preview-signature-image"
                           />
