@@ -5,6 +5,7 @@
     "module": "ESNext",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["node", "vite/client"],
+    "jsx": "react-jsx",
     "skipLibCheck": true,
     "moduleResolution": "bundler",
     "verbatimModuleSyntax": true,
@@ -18,5 +19,5 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "vite.config.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "vite.config.ts"]
 }

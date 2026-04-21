@@ -30,9 +30,432 @@ ul li:before { content: "✓"; position: absolute; left: 0; color: var(--gold); 
 
 .location-section { text-align: center; padding: 20px; border: 1px dashed var(--primary-green); margin-top: 30px; }
 
+.application-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    z-index: 9999;
+}
+
+.application-modal {
+    width: min(1100px, 100%);
+    max-height: min(88vh, 900px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #fff;
+    border-radius: 10px;
+    border-top: 5px solid var(--primary-green);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+}
+
+.application-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 18px;
+    border-bottom: 1px solid #eee;
+}
+
+.application-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    color: var(--primary-green);
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+
+.application-modal-close {
+    appearance: none;
+    border: 1px solid #e6e6e6;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.application-form {
+    padding: 18px;
+}
+
+.application-form-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 18px;
+}
+
+.application-panel {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 16px;
+    background: #fff;
+}
+
+.application-panel h3 {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+    color: var(--primary-green);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.application-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.application-field label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #223;
+    margin-bottom: 6px;
+}
+
+.application-field input,
+.application-field select,
+.application-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    outline: none;
+    font: inherit;
+    background: #fff;
+}
+
+.application-field textarea { min-height: 86px; resize: vertical; }
+
+.application-field select {
+    font-size: 16px; /* mobile: avoid iOS zoom + improve touch */
+}
+
+.application-preview-title {
+    margin: 0 0 12px;
+    font-size: 1rem;
+    color: var(--primary-green);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.application-preview-paper {
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    padding: 16px;
+    background: #fff;
+}
+
+.application-preview-top {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.application-preview-passport {
+    border: 1px solid #cfcfcf;
+    width: 46mm;
+    height: 58mm;
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.application-preview-passport-label {
+    font-weight: 800;
+    font-size: 0.78rem;
+    line-height: 1.2;
+    color: #223;
+}
+
+.application-preview-passport-file {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: #5b6773;
+    word-break: break-word;
+}
+
+.application-preview-passport-image {
+    width: 35mm;
+    height: 45mm;
+    object-fit: cover;
+    border: 1px solid #cfcfcf;
+    background: #fff;
+}
+
+.application-preview-heading {
+    text-align: center;
+}
+
+.application-preview-title-text {
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #b3262e;
+    font-size: 1.4rem;
+}
+
+.application-preview-section-title {
+    color: #b3262e;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    font-size: 0.88rem;
+    margin: 14px 0 8px;
+}
+
+.application-preview-line {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.application-preview-line-2 { grid-template-columns: 1fr 1fr; }
+.application-preview-line-3 { grid-template-columns: 1fr 1fr 1fr; }
+.application-preview-line-4 { grid-template-columns: 1.4fr 1fr 0.7fr 0.8fr; }
+
+.application-preview-field {
+    min-width: 0;
+}
+
+.application-preview-label-inline {
+    font-weight: 800;
+    font-size: 0.82rem;
+    color: #223;
+    margin-bottom: 4px;
+}
+
+.application-preview-value-line {
+    border-bottom: 2px dotted #9aa4af;
+    min-height: 22px;
+    padding-bottom: 2px;
+    font-size: 0.9rem;
+    color: #2c3e50;
+    word-break: break-word;
+}
+
+.application-preview-block {
+    margin-bottom: 10px;
+}
+
+.application-preview-value-block {
+    border-bottom: 2px dotted #9aa4af;
+    min-height: 30px;
+    padding-bottom: 2px;
+    font-size: 0.9rem;
+    color: #2c3e50;
+    white-space: pre-wrap;
+}
+
+.application-preview-choice {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    color: #2c3e50;
+    font-size: 0.9rem;
+}
+
+.application-preview-box {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #111;
+    display: inline-block;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.application-preview-box.checked {
+    background: linear-gradient(#111, #111);
+    box-shadow: inset 0 0 0 3px #fff;
+}
+
+.application-preview-payment {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.application-preview-property-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px 14px;
+    margin-bottom: 10px;
+}
+
+.application-preview-allocated {
+    margin-bottom: 10px;
+}
+
+.application-preview-fee {
+    text-align: center;
+    font-weight: 900;
+    font-size: 1.2rem;
+    margin: 18px 0 10px;
+    color: #b3262e;
+}
+
+.application-preview-signature {
+    margin-top: 6px;
+}
+
+.application-preview-signature-box {
+    border: 1px dashed #9aa4af;
+    border-radius: 6px;
+    padding: 6px;
+    min-height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+}
+
+.application-preview-signature-image {
+    width: 300px;
+    height: 80px;
+    object-fit: contain;
+    background: #fff;
+}
+
+.application-preview-signature-file {
+    font-size: 0.82rem;
+    color: #5b6773;
+    word-break: break-word;
+}
+
+.application-choice {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    padding-top: 4px;
+}
+
+.application-choice label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #2c3e50;
+}
+
+.application-choice input[type="radio"] { transform: translateY(1px); }
+
+.application-terms {
+    font-size: 0.9rem;
+    color: #2c3e50;
+    line-height: 1.5;
+    margin: 0;
+    padding-left: 24px;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+}
+
+.application-terms li {
+    margin: 0 0 10px;
+    padding-left: 6px; /* keeps text aligned after number marker */
+}
+
+.application-terms li::marker {
+    font-weight: 800;
+    color: #223;
+}
+
+.application-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.application-primary {
+    border: 2px solid var(--primary-green);
+    background: var(--primary-green);
+    color: #fff;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.application-secondary {
+    border: 2px solid var(--primary-green);
+    background: transparent;
+    color: var(--primary-green);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.application-note {
+    font-size: 1.15rem;
+    color: #b3262e;
+    margin: 12px 0 0;
+    text-align: center;
+    font-weight: 900;
+    line-height: 1.35;
+}
+
+.application-error {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #fff3f2;
+    border: 1px solid #ffd2cf;
+    color: #8a1f16;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.application-success {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #f0fff3;
+    border: 1px solid #bff0c7;
+    color: #0d5b1c;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
 footer { background: #111; color: #999; text-align: center; padding: 40px 20px; margin-top: 40px; font-size: 0.85rem; border-top: 4px solid var(--gold); }
 
 @media (max-width: 600px) {
     .btn { width: 100%; flex: none; }
     .hero { padding: 40px 15px; }
+    .application-form-grid { grid-template-columns: 1fr; }
+    .application-row { grid-template-columns: 1fr; }
+    .application-modal-overlay { padding: 12px; }
+    .application-modal-header { align-items: flex-start; }
+    .application-modal-close { width: 100%; }
+    .application-form { padding: 14px; }
+    .application-panel { padding: 14px; }
+    .application-terms { padding-left: 20px; }
+    .application-preview-top { grid-template-columns: 1fr; }
+    .application-preview-paper { padding: 12px; }
+    .application-preview-title-text { font-size: 1.1rem; }
+    .application-preview-property-grid { grid-template-columns: 1fr; }
+    .application-preview-choice { font-size: 0.85rem; }
+    .application-preview-fee { font-size: 1rem; margin: 14px 0 8px; }
+    .application-preview-passport { width: 100%; max-width: 46mm; }
+    .application-preview-passport-image { width: 100%; max-width: 35mm; }
+    .application-preview-line-2,
+    .application-preview-line-3,
+    .application-preview-line-4 { grid-template-columns: 1fr; }
+    .application-preview-signature-image { width: 100%; max-width: 300px; }
 }

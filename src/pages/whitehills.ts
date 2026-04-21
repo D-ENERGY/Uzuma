@@ -1,5 +1,6 @@
 import "../css/whitehills.css";
 import { assetUrl, pageUrl } from "../lib/paths";
+import { mountApplicationForm } from "../lib/mountApplicationForm";
 
 document.body.innerHTML = `
     <header><img src="${assetUrl("navy-logo.jpeg")}" class="logo" alt="Navy Logo">
@@ -36,7 +37,7 @@ document.body.innerHTML = `
         </ul>
 
         <div class="btn-container">
-            <a href="#" class="btn btn-navy">📄 Download Application Form</a>
+            <button type="button" id="open-application-form" class="btn btn-navy">📝 Fill Application Form</button>
             <a href="#" class="btn btn-outline">📖 Read Master Plan</a>
             <a href="#" class="btn btn-gold">⬇️ Download Project Brief</a>
         </div>
@@ -52,3 +53,8 @@ document.body.innerHTML = `
         &copy; 2026 Whitehills City. All Rights Reserved.</p>
     </footer>
 `;
+
+const controller = mountApplicationForm();
+document.getElementById("open-application-form")?.addEventListener("click", () => {
+  controller.open("whitehills");
+});

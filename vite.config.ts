@@ -1,5 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
@@ -21,6 +22,7 @@ function resolveBase(): string {
 
 export default defineConfig({
   base: resolveBase(),
+  plugins: [react()],
   build: {
     rollupOptions: {
       input: {

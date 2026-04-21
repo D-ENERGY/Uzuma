@@ -1,5 +1,6 @@
 import "../css/greenhills.css";
 import { assetUrl, pageUrl } from "../lib/paths";
+import { mountApplicationForm } from "../lib/mountApplicationForm";
 
 document.body.innerHTML = `
     <header><img src="${assetUrl("army-logo.jpeg")}" class="logo" alt="Army Logo">
@@ -36,7 +37,7 @@ document.body.innerHTML = `
         </ul>
 
         <div class="btn-container">
-            <a href="#" class="btn btn-green">📄 Download Application Form</a>
+            <button type="button" id="open-application-form" class="btn btn-green">📝 Fill Application Form</button>
             <a href="#" class="btn btn-outline">📖 Read Master Plan</a>
             <a href="#" class="btn btn-gold">⬇️ Download Project Brief</a>
         </div>
@@ -52,3 +53,8 @@ document.body.innerHTML = `
         &copy; 2026 Greenhills City. All Rights Reserved.</p>
     </footer>
 `;
+
+const controller = mountApplicationForm();
+document.getElementById("open-application-form")?.addEventListener("click", () => {
+  controller.open("greenhills");
+});

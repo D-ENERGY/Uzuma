@@ -7,11 +7,21 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "preview:gh": "GITHUB_REPOSITORY=D-ENERGY/Uzuma npm run build && vite preview --base /Uzuma/"
+    "preview:gh": "GITHUB_REPOSITORY=D-ENERGY/Uzuma npm run build && vite preview"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
     "typescript": "~5.8.3",
-    "vite": "^6.3.5"
+    "vite": "^8.0.9"
+  },
+  "dependencies": {
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx"
   }
 }
